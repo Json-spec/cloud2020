@@ -1,0 +1,4 @@
+spring:
+  profiles:
+    active: colony         #集群配置文件
+    #active: onlyOne         #单机版配置文件

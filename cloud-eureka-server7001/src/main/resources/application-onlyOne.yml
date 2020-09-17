@@ -1,0 +1,20 @@
+#-----------------------------基础配置-----------------------------------------------------------------------------------
+server:
+  port: 7001                                                                                 #服务端口
+
+spring:
+  application:
+    name: cloud-eureka-server7001                                                            #服务名称（必须要配置）
+#-----------------------------Eureka服务端相关配置-----------------------------------------------------------------------
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/                            #注册到当前地址中，实现eureka 集群后面描述
+    fetch-registry: false                                                                     # 是否拉取其它服务的信息，默认是true
+    register-with-eureka: false                                                               # 是否注册自己的信息到EurekaServer，默认是true
+  server:
+    enable-self-preservation: false                                                           # 关闭自我保护模式（缺省为打开）
+
+

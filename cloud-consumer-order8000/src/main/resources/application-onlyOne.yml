@@ -1,0 +1,23 @@
+#------------------------------基础配置----------------------------------------------------------------------------------
+server:
+  port: 8000                                                                                   #端口号
+
+spring:
+  application:
+    name: cloud-order-service                                                                  #此服务名称(必须要配置)
+
+#-------------------------------Eureka客户端相关配置---------------------------------------------------------------------
+eureka:
+  instance:
+    hostname: localhost                                                                        #主机名称ip
+  client:
+    fetch-registry: true                                                                       #是否拉取其它服务的信息，默认是true
+    register-with-eureka: true                                                                 # 是否注册自己的信息到EurekaServer，默认是true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/                             #指定服务客户端要注册到那个注册中的具体地址
+
+
+#logging:
+  #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
+  #level:
+    #com.atguigu.springcloud: debug

@@ -1,0 +1,28 @@
+#-----------------------------基础配置-----------------------------------------------------------------------------------
+server:
+  port: 7001                                                                                 #服务端口
+
+spring:
+  application:
+    name: cloud-eureka-server7001                                                            #服务名称（必须要配置）
+#-----------------------------Eureka服务端相关配置-----------------------------------------------------------------------
+eureka:
+  instance:
+    hostname: eureka7001.com
+  client:
+    serviceUrl:
+      defaultZone:  http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/     #集群版注册中心服务端 需要在defaultZone后面分别注册除自身以外的注册中心    比如7001端口的注册中心需要在defaultZone后面写上7002端口的注册中心地址
+    fetch-registry: false                                                                     # 是否拉取其它服务的信息，默认是true
+    register-with-eureka: false                                                               # 是否注册自己的信息到EurekaServer，默认是true
+  server:
+    enable-self-preservation: false                                                           # 关闭自我保护模式（缺省为打开）
+
+#注:   此项目模拟集群需要修改hots文件 修改内容为（127.0.0.1  eureka7001.com   127.0.0.1  eureka7002.com  127.0.0.1  eureka7003.com）此为三台eureka注册中心
+#      在配置集群时候需要在当前服务中需要指定除本服务以后的另两台或多台注册中心以此类推，在服务注册中心客户端则需要分别写上三台或者多台注册中心的地址
+#eg:  7001  7002 7003 三台注册中心
+#     7001 需要在 defaultZone中配 7002和7003的注册中心地址
+#     7002 需要在 defaultZone中配 7001和7003的注册中心地址
+#     7003 需要在 defaultZone中配 7001和7002的注册中心地址
+
+
+

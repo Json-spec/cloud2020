@@ -1,0 +1,36 @@
+#---------------------------基础配置必须要陪-----------------------------------------------------------------------------
+server:
+  port: 8001                                                                                          #端口号
+
+spring:
+  application:
+    name: cloud-payment-service                                                                       #服务名称（必须要配置）
+#----------------------------数据源相关配置------------------------------------------------------------------------------
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource                                                      #当前数据库操作类型
+    driver-class-name: com.mysql.jdbc.Driver                                                          #mysql驱动包
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&usrSSL=false        #mysql的url
+#------------------------------注册中心相关配置--------------------------------------------------------------------------
+eureka:
+  instance:
+    hostname: localhost                                                                               #主机名称可以是ip
+  client:
+    fetch-registry: true                                                                              # 是否拉取其它服务的信息，默认是true
+    register-with-eureka: true                                                                        # 是否注册自己的信息到EurekaServer，默认是true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/                                    #指定服务客户端要注册到那个注册中的具体地址
+
+
+
+#------------------------------mybatis相关配置--------------------------------------------------------------------------
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml                                                      #mapper配置文件位置
+  type-aliases-package: com.atguigu.springcloud.entityes                                              #指定实体类别名所在的包路径
+
+logging:
+  #config: classpath:log4j2-test.xml                                                                  #指定日志文件的位置
+  level:
+    com.atguigu.springcloud.mapper: debug                                                             #指定日志级别为debug(level的下一层级代表的是包的路径最好配置为服务的父路径这样可以扫描所有文件)
+
