@@ -16,6 +16,7 @@ import java.util.UUID;
  */
 @RestController
 public class ProviderZookeeperController {
+    //从配置文件获取端口使用@Value注解
     @Value("${server.port}")
     private String serverPort;
 
