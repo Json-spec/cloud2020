@@ -1,11 +1,11 @@
 #---------------------------基础配置必须要陪-----------------------------------------------------------------------------
 server:
-  port: 8001                                                                                          #端口号
+  port: 8002                                                                                          #端口号
 
 spring:
   application:
-    name: cloud-payment-service                                                                      #服务名称（必须要配置）
-  #----------------------------数据源相关配置------------------------------------------------------------------------------
+    name: cloud-payment-service                                                                       #服务名称（必须要配置）
+#----------------------------数据源相关配置------------------------------------------------------------------------------
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource                                                      #当前数据库操作类型
     driver-class-name: com.mysql.jdbc.Driver                                                          #mysql驱动包
@@ -20,7 +20,7 @@ eureka:
     fetch-registry: true                                                                              # 是否拉取其它服务的信息，默认是true
     register-with-eureka: true                                                                        # 是否注册自己的信息到EurekaServer，默认是true
     serviceUrl:
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka                #指定服务客户端要注册到那个注册中的具体地址(集群版需要在defaultZone后面列出所有注册中心服务端地址服务分别注册到每一个注册中心，注册中心地址以逗号分隔）
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/                                    #指定服务客户端要注册到那个注册中的具体地址
 
 
 
@@ -34,5 +34,3 @@ logging:
   level:
     com.atguigu.springcloud.mapper: debug                                                             #指定日志级别为debug(level的下一层级代表的是包的路径最好配置为服务的父路径这样可以扫描所有文件)
 
-
-#注意: 集群环境下的服务 相同的服务部署在不同的服务器中 同一个服务的名称需要相同。

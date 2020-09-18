@@ -14,13 +14,13 @@ import java.util.UUID;
  * author: sttdev <br>
  * version: 1.0 <br>
  */
-@RestController
+@RestController              //controller层并返回json格式
 public class ProviderZookeeperController {
     //从配置文件获取端口使用@Value注解
     @Value("${server.port}")
     private String serverPort;
 
-    @RequestMapping("/provider/zookeeper")
+    @RequestMapping("/provider/zookeeper")       //请求地址
     public String getZookeeper(){
         return "zookeeper with provider for client" + serverPort+":" + UUID.randomUUID().toString();
     }
