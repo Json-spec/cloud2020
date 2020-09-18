@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off">
+
+    <!-- 变量配置 -->
+    <Properties>
+       <!-- <Property name="log_path">/home/java/server/logs/manage/</Property>-->
+        <Property name="log_path">D\\springcloud\\logs\\cloudproviderPayment\\</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+
+        </Console>
+
+        <RollingFile name="DailyRollingFileTrace"
+                     fileName="${log_path}/cloudproviderPaymenttrace.log"
+                     filePattern="${log_path}/cloudproviderPaymenttrace%d{yyyy-MM-dd}-%i.log.gz" ignoreExceptions="false">
+
+            <ThresholdFilter level="trace" onMatch="ACCEPT"
+                             onMismatch="DENY"/>
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="200 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="DailyRollingFileInfo"
+                     fileName="${log_path}/cloudproviderPaymentinfo.log"
+                     filePattern="${log_path}/cloudproviderPaymentinfo%d{yyyy-MM-dd}-%i.log.gz" ignoreExceptions="false">
+
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY"/>
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="200 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <RollingFile name="DailyRollingFiledebug" fileName="${log_path}/cloudproviderPaymentdebug.log"
+                     filePattern="${log_path}/cloudproviderPaymentdebug%d{yyyy-MM-dd}-%i.log.gz" ignoreExceptions="false">
+
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+       <!--     <PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss,SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
+            <PatternLayout  pattern="%highlight{%-5level} %date{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n"/>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="200 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <RollingFile name="DailyRollingFileError"
+                     fileName="${log_path}/cloudproviderPaymenterror.log"
+                     filePattern="${log_path}/cloudproviderPaymenterror%d{yyyy-MM-dd}-%i.log.gz" ignoreExceptions="false">
+
+            <ThresholdFilter level="error" onMatch="ACCEPT"
+                             onMismatch="DENY"/>
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="200 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!-- 业务debug日志 -->
+        <logger name="com.atguigu.springcloud" level="DEBUG"/>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DailyRollingFileInfo"/>
+            <AppenderRef ref="DailyRollingFiledebug"/>
+            <AppenderRef ref="DailyRollingFileError"/>
+            <AppenderRef ref="DailyRollingFileTrace"/>
+        </Root>
+    </Loggers>
+</Configuration>

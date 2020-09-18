@@ -1,23 +1,24 @@
+#---------------------------基础配置---------------------------------------------------------
 server:
-  port: 8004
+  port: 8004    #端口
 
 spring:
   application:
-    name: zookeeper-server
-  datasource:
+    name: zookeeper-server      #服务名称
+  datasource:                   #数据源
     type: com.alibaba.druid.pool.DruidDataSource                                                      #当前数据库操作类型
     driver-class-name: com.mysql.jdbc.Driver                                                          #mysql驱动包
     username: root
     password: root
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&usrSSL=false        #mysql的url
 
-
+#---------------zookeeper的注册中心配置----------------------------------------------
   cloud:
     zookeeper:
-      connect-string:  127.0.0.1:2181
+      connect-string:  127.0.0.1:2181       #zookeeper的主机地址和端口
+#此为zookeeper的单机版配置，如果需要使用zookeeper的集群版可以在 connect-string：后面配上集群的地址和端口通过逗号区分即可（eg；192.168.1.161:2181,192.168.1.165:2181,192.168.1.167:2181）
 
 
-
-
+#----------------------------mybatis的配置------------------------------------------------------
 mybatis:
   mapper-locations: classpath:mapper/*.Mapper.xml

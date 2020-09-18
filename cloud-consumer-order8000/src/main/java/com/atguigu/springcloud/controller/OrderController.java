@@ -15,19 +15,21 @@ import org.springframework.web.client.RestTemplate;
  * author: sttdev <br>
  * version: 1.0 <br>
  */
-@RestController
+@RestController               //controller层并返回json格式
 public class OrderController {
 
-    private final String URL = "http://localhost:8001/";
-@Autowired
-    private RestTemplate restTemplate;
+    private final String URL = "http://localhost:8001/";        //写死的restTemplate调用远程服务扩展性不好而且不能实现负载均衡的效果
 
-@RequestMapping(value = "/consumer/payment/{id}")
+    private final String URL_Banlance = "http://CLOUD-PAYMENT-SERVICE";  //使用要调用的服务的名称即可实现扩展和负载均衡效果前提是在RestTemplate配置类对象上加上@LoadBanlence注解开启负载均衡
+@Autowired
+    private RestTemplate restTemplate;           //注入在config文件夹中定义的java配置类中的RestTemplate对象
+
+@RequestMapping(value = "/consumer/payment/{id}")     //请求地址
     public CommonResult getpaymentById(@PathVariable("id") Long id){
-   return  restTemplate.getForObject(URL + "/payment/get/" + id, CommonResult.class);
+   return  restTemplate.getForObject(URL_Banlance + "/payment/get/" + id, CommonResult.class);
 }
-    @RequestMapping(value = "/consumer/payment/create")
-    public CommonResult create(@RequestBody Payment payment){
-        return  restTemplate.postForObject(URL + "/payment/create/", payment, CommonResult.class);
+    @RequestMapping(value = "/consumer/payment/create")   //请求地址
+    public CommonResult create(@RequestBody Payment payment){         //@RequestBody 通常接收一个json格式的字符串对象ajax的请求头是 Context-type=application/json;
+        return  restTemplate.postForObject(URL_Banlance + "/payment/create/", payment, CommonResult.class);
     }
 }
