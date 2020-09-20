@@ -1,10 +1,10 @@
 #------------------------------基础配置----------------------------------------------------------------------------------
 server:
-  port: 8006                                                                                #端口号
+  port: 8007                                                                                #端口号
 
 spring:
   application:
-    name: cloud-providerForConsul-paymentServer8006                                          #此服务名称(必须要配置)
+    name: cloud-consumerForConsul-consumerServer8007                                          #此服务名称(必须要配置)
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource                                                      #当前数据库操作类型
     driver-class-name: com.mysql.jdbc.Driver                                                          #mysql驱动包
@@ -12,7 +12,7 @@ spring:
     password: root
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&usrSSL=false        #mysql的url
 
-#-------------------------------Consul服务注册中心相关配置---------------------------------------------------------------------
+  #-------------------------------Consul服务注册中心相关配置---------------------------------------------------------------------
   cloud:
     consul:
       host: localhost                                                                  #consul注册中心的主机名称
@@ -31,5 +31,5 @@ mybatis:
 
     #logging:
     #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
-    #level:
+  #level:
   #com.atguigu.springcloud: debug
