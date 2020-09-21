@@ -33,3 +33,9 @@ mybatis:
     #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
   #level:
   #com.atguigu.springcloud: debug
+
+
+#注意在consul注册中心中需要向zookeeper那样下载压缩包，其注册中心是一个consul.exe文件可进行
+#环境变量配置在path中添加consul.exe的全路径然后在cmd中通过 consul agent -dev 进行启动consul注册中心即可
+
+
