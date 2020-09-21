@@ -13,7 +13,7 @@ public class ConsumerForConsulController {
     private RestTemplate restTemplate;  //注入config包下的创建的Bean容器中的RestTemplate的对象
 
     @Value("${server.port}")
-    private String port;
+    private String port;               //获取配置文件的端口
 
     //private  String URL = "http://127.0.0.1:8006";      //这种ip+端口是写死的不易与扩因此需改成微服务名调用
     private String URL = "http://cloud-providerForConsul-paymentServer8006";     //微服务名调用
