@@ -1,0 +1,11 @@
+Eureka 、 Zookeeper 、Consul 区别   
+
+Eureka        使用Java编写       遵循CAP原理中的 AP           对外暴露接口HTTP
+
+Zookeeper     使用Java编写       遵循CAP原理中的CP            对外暴露接口客户端
+                            
+Consule        使用Go编写        遵循CAP原理中的CP            对外暴露接口HTTP
+
+注：CAP( C：强一致性  A：高可用  P：分区容错性)
+
+CAP中分区容错性P必须要保证的，并且只能满足两个维度
