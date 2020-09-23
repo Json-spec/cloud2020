@@ -5,6 +5,7 @@ import com.atguigu.springcloud.entityes.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +28,28 @@ public class OrderController {
     private RestTemplate restTemplate;           //注入在config文件夹中定义的java配置类中的RestTemplate对象
 
 @RequestMapping(value = "/consumer/payment/{id}")     //请求地址
-    public CommonResult getpaymentById(@PathVariable("id") Long id){
+    public CommonResult getpaymentById(@PathVariable("id") Long id){  //从地址栏接收参数
    return  restTemplate.getForObject(URL_Banlance + "/payment/get/" + id, CommonResult.class);
 }
     @RequestMapping(value = "/consumer/payment/create")   //请求地址
     public CommonResult create(@RequestBody Payment payment){         //@RequestBody 通常接收一个json格式的字符串对象ajax的请求头是 Context-type=application/json;
         return  restTemplate.postForObject(URL_Banlance + "/payment/create/", payment, CommonResult.class);
+    }
+
+    /**
+     * 使用restTemplate中的getForEntity形式调用服务       restTemplate.getForEntity返回一个相应体
+     * @param id
+     * @return
+     */
+    @RequestMapping("/consumer/restTemplate/{id}")      //请求地址
+    public CommonResult getPaymentMsg(@PathVariable("id") Long id){      //从地址栏接收参数
+        ResponseEntity<CommonResult> forEntity = restTemplate.getForEntity(URL_Banlance + "/payment/get/" + id, CommonResult.class);
+        if (forEntity.getStatusCode().is2xxSuccessful()){
+            CommonResult body = forEntity.getBody();
+            return body;
+        }else{
+            return new CommonResult(444,"查询失败");
+        }
+
     }
 }
