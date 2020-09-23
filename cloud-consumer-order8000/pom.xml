@@ -12,6 +12,11 @@
     <artifactId>cloud-consumer-order8000</artifactId>
 
     <dependencies>
+        <!--ribbon做客户端的负载均衡（注：spring-cloud-starter-netflix-eureka-client整合了ribbon依赖，因此在pom文件中可以引入坐标也可以不引入以来坐标）-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
         <!--springCloud的eureka的客户端依赖，标记此服务作为eureka的客户端向eureka的服务端注册-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
