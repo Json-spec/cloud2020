@@ -50,6 +50,16 @@ public class OrderController {
         }else{
             return new CommonResult(444,"查询失败");
         }
-
     }
+    @RequestMapping("/consumer/restTemplate/postForEntity/{id}")          //请求地址
+    public CommonResult getPaymentMsgForEntity(@PathVariable("id") Long id){       //从地址栏接收参数
+        ResponseEntity<CommonResult> entity = restTemplate.postForEntity(URL_Banlance+"/payment/get/" + id,null,CommonResult.class);
+        if (entity.getStatusCode().is2xxSuccessful()){
+            return entity.getBody();
+        }else{
+            return  new CommonResult(444,"查询失败");
+        }
+    }
+
+
 }
