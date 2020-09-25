@@ -1,0 +1,30 @@
+IRule接口的实现类集中轮询规则
+com.netflix.loadbalancer.RoundRobinRule            轮询
+
+com.netflix.loadbalancer.RandomRule                随机
+
+com.netflix.loadbalancer.RetryRule                 先按照RoundRobinRule的策略获取服务，如果获取服务失败则在指定时间内会进行重试
+
+WeightedResponseTimeRule                           对RoundRobinRule的扩展，响应速度越快的实例选择权重越大，越容易被选择
+
+BestAvailableRule                                  会先过滤掉由于多次访问故障而处于断路器跳闸状态的服务，然后选择一个并发量最小的服务
+
+AvailabilityFilteringRule                          先过滤掉故障实例，再选择并发较小的实例
+
+ZoneAvoidanceRule                                  默认规则，复合判断server所在区域的性能和server的可用性选择服务器
+
+Ribbon轮询原理：
+
+负载均衡算法: ResrFul接口第几次请求数 % 服务器集群总数量 = 实际调用服务器位置的下标 ， 每次服务重启后ResrFul接口计数从1开始
+
+List<Instances> list = discoveryClient.getInstances("cloud-payment-service")； //获取集群中服务实例
+如：   list[0] = 127.0.0.1:8002
+       list[1] =  127.0.0.1:8001
+8001 和 8002 组成了一个集群，他们总计2台服务，即两台服务器，他们的轮询算法规则如下：
+当总请求数为1时： index = 1%2   list[index] = 127.0.0.1:8001   获得服务地址是:127.0.0.1:8001 
+当总请求数为2时： index = 2%2   list[index] = 127.0.0.1:8002   获得服务地址是:127.0.0.1:8002
+当总请求数为3时： index = 3%2   list[index] = 127.0.0.1:8001   获得服务地址是:127.0.0.1:8001 
+当总请求数为4时： index = 4%2   list[index] = 127.0.0.1:8002   获得服务地址是:127.0.0.1:8002
+如此类推...........
+注意：服务重启了则需要重新获取服务注册实例的总数轮询次数也会重新从1开始。
+
