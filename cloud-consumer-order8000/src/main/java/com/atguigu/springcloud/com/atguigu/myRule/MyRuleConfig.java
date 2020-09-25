@@ -17,10 +17,10 @@ import org.springframework.context.annotation.Configuration;
  *
  *
  */
-@Configuration
+@Configuration     //此注解标记是java配置类
 public class MyRuleConfig {
 
-    @Bean
+    @Bean       // 创建的对象加入到Bean容器中
     public IRule iRule(){
         return new RandomRule();
     }
