@@ -1,4 +1,4 @@
-IRule接口的实现类集中轮询规则:
+IRule接口的实现类集中轮询规则
 com.netflix.loadbalancer.RoundRobinRule            轮询
 
 com.netflix.loadbalancer.RandomRule                随机
