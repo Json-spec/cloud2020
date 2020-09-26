@@ -63,6 +63,12 @@
             <artifactId>cloud-common-project</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--引入cloud-provider-payment-fegin的依赖从而可以注入此model种定义的openFegin接口对象-->
+        <dependency>
+            <groupId>com.atguigu.springcloud</groupId>
+            <artifactId>cloud-provider-payment-fegin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 </project>
