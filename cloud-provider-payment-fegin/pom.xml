@@ -9,14 +9,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-provider-payment8002</artifactId>
+    <artifactId>cloud-provider-payment-fegin</artifactId>
     <dependencies>
-        <!--springCloud的eureka的客户端依赖，标记此服务作为eureka的客户端向eureka的服务端注册-->
+        <!--springcloud-openfegin依赖（openfegin技术组件整合了ribbon的负载均衡）-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!--springCloud的注册中心eureka的客户端（如果此model作为依赖引入到服务消费者调用远程可以不用引入此依赖）-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        <!--springboot的web启动包-->
+        <!--springboot的web启动依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -26,38 +31,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!--springboot整合mybatis的坐标-->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-        <!--springboot整合alibaba连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.10</version>
-        </dependency>
-        <!--引入mysql驱动包-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!--springboot整合jdbc坐标在引入mybatis-spring-boot-starter坐标可不用单独引入此坐标，因为springboot整合mybatis包含了此坐标-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
         <!--springboot热部署devtools坐标-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <!--lombok坐标，引入此坐标可减少实体类中setterAndgetter等相关冗余代码-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
         <!--springboot整合单元测试相关坐标-->
@@ -66,7 +44,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <!--引入项目中的模块(cloud-common-project)-->
         <dependency>
             <groupId>com.atguigu.springcloud</groupId>
@@ -74,5 +51,4 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 </project>

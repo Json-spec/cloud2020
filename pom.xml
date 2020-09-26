@@ -20,6 +20,7 @@
         <module>cloud-providerForConsul-paymentServer8006</module>
         <module>cloud-provider-payment8002</module>
         <module>cloud-consumerForConsul-server8007</module>
+        <module>cloud-provider-payment-fegin</module>
     </modules>
     <packaging>pom</packaging>
 
