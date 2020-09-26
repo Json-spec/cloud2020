@@ -16,6 +16,10 @@ eureka:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/      #指定服务客户端要注册到那个注册中的具体地址(集群版需要在defaultZone后面列出所有注册中心服务端地址服务分别注册到每一个注册中心，注册中心地址以逗号分隔）
 
+ribbon:               #openFegin默认等待一秒钟超时因此需要设置openFegin的超时时间（openFegin整合了ribbon因此超时间时间由ribbon控制）
+  ReadTimeout: 6000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
+  ConnectTimeout: 6000   #建立后从服务器读取到可用资源所用的时间
+
 
     #logging:
     #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
