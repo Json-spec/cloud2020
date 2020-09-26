@@ -73,14 +73,14 @@ public class OrderController {
 
 
     //上面是通过ribbon+RestTemplate形式调用服务提供者，下面是通过openFegin技术调用服务提供者推荐使用
-    @RequestMapping("/consumer/openFegin/{id}")          //请求地址
+    @RequestMapping("/consumer/openFegin/{id}")          //请求地址（查询）
     public CommonResult getPaymentMsgForOpenFegin(@PathVariable("id") Long id){    //参数栏去参数
         CommonResult commonResult = paymentFeignClient.getpaymentById(id);
         return commonResult;
     }
 
-    @RequestMapping("/consumer/openFeign/create")
-    public CommonResult createPaymentMsgOpenFegin(@RequestBody Payment payment){
+    @RequestMapping("/consumer/openFeign/create")   //请求地址（插入）
+    public CommonResult createPaymentMsgOpenFegin(@RequestBody Payment payment){ //@RequestBody 通常接收一个json格式的字符串对象ajax的请求头是 Context-type=application/json;
         CommonResult commonResult = paymentFeignClient.create(payment);
         return commonResult;
     }
