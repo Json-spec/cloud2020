@@ -16,6 +16,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+        <!--springCloud的openFegin依赖坐标(通过openFegin远程调用微服务)-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
         <!--springboot的web启动包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
