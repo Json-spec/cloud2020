@@ -35,7 +35,7 @@ public class PaymentController {
         int i = paymentService.create(payment);
         boolean flag = false;
         if (flag = i > 0 ? true : false) {
-            return new CommonResult(200, "插入成功", flag);
+            return new CommonResult(200, "插入成功,端口是:"+port, flag);
         } else {
             return new CommonResult(444, "插入失败", flag);
         }
