@@ -1,4 +1,4 @@
 spring:
   profiles:
-    active: colony                 #集群版注册中心
-    #active: onlyOne                 #单机版注册中心
+    #active: colony                 #集群版注册中心
+    active: onlyOne                 #单机版注册中心

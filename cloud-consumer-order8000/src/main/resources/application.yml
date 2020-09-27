@@ -1,4 +1,4 @@
 spring:
   profiles:
-    #active: onlyOne           #单机版配置文件
-    active: colony           #集群版配置文件
+    active: onlyOne           #单机版配置文件
+    #active: colony           #集群版配置文件

@@ -5,6 +5,11 @@ server:
 spring:
   application:
     name: cloud-order-service                                                                  #此服务名称(必须要配置)
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
 
 #-------------------------------Eureka客户端相关配置---------------------------------------------------------------------
 eureka:
@@ -17,9 +22,9 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:7001/eureka/                             #指定服务客户端要注册到那个注册中的具体地址
 
 
-  ribbon:               #openFegin默认等待一秒钟超时因此需要设置openFegin的超时时间（openFegin整合了ribbon因此超时间时间由ribbon控制）
-    ReadTimeout: 6000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
-    ConnectTimeout: 6000   #建立后从服务器读取到可用资源所用的时间
+ribbon:               #openFegin默认等待一秒钟超时因此需要设置openFegin的超时时间（openFegin整合了ribbon因此超时间时间由ribbon控制）
+  ReadTimeout: 60000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
+  ConnectTimeout: 60000   #建立后从服务器读取到可用资源所用的时间
 
 #logging:
   #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
@@ -27,4 +32,5 @@ eureka:
     #com.atguigu.springcloud: debug
 logging:
   level:
-    com.atguigu.springcloud.feignclient.PaymentFeignClient: debug                               #打开fegin的调用服务的详细日志对应Fegin的接口
+    com.atguigu.springcloud.feignclient.PaymentHystrixFeginClient: debug                       #打开fegin的调用服务的详细日志对应Fegin的接口
+
