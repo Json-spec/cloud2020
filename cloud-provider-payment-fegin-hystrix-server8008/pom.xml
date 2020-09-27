@@ -9,18 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-consumer-order8000</artifactId>
-
+    <artifactId>cloud-provider-payment-fegin-hystrix-server8008</artifactId>
     <dependencies>
-        <!--ribbon做客户端的负载均衡（注：spring-cloud-starter-netflix-eureka-client整合了ribbon依赖，因此在pom文件中可以引入坐标也可以不引入以来坐标）-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
         <!--springCloud的eureka的客户端依赖，标记此服务作为eureka的客户端向eureka的服务端注册-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!--springCloud的openFegin依赖坐标(通过openFegin远程调用微服务)-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!--springCloud的熔断以来hystrix(通过Hystrix来做服务的熔断降级和限流)-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-netflix-hystrix</artifactId>
         </dependency>
         <!--springboot的web启动包-->
         <dependency>
@@ -45,16 +49,18 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
         <!--springboot整合单元测试相关坐标-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>true</scope>
+            <scope>test</scope>
         </dependency>
-        <!--日志框架-->
+        <!-- alibaba的json转换工具 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.73</version>
         </dependency>
 
         <!--引入项目中的模块(cloud-common-project)-->
@@ -63,19 +69,5 @@
             <artifactId>cloud-common-project</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--引入cloud-provider-payment-fegin的依赖从而可以注入此model种定义的openFegin接口对象-->
-        <dependency>
-            <groupId>com.atguigu.springcloud</groupId>
-            <artifactId>cloud-provider-payment-fegin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <!--引入cloud-provider-payment-fegin-hystrix-server8008的依赖从而可以注入此model种定义的openFegin接口对象-->
-        <dependency>
-            <groupId>com.atguigu.springcloud</groupId>
-            <artifactId>cloud-provider-payment-fegin-hystrix-server8008</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
 </project>

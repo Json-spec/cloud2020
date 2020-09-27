@@ -2,6 +2,7 @@ package com.atguigu.springcloud.controller;
 
 import com.atguigu.springcloud.entity.CommonResult;
 import com.atguigu.springcloud.entityes.Payment;
+import com.atguigu.springcloud.feginclient.PaymentHystrixFeginClient;
 import com.atguigu.springcloud.feignclient.PaymentFeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +29,13 @@ public class OrderController {
     @Autowired
     private RestTemplate restTemplate;           //注入在config文件夹中定义的java配置类中的RestTemplate对象（通过RestTemplate形式调用的对象）
 
-
     @Autowired
     private PaymentFeignClient paymentFeignClient;  //注入openFeign的接口 （通过openFeign的形式调用微服务，也是现当代主流方式推荐使用）
 
+    @Autowired
+    private PaymentHystrixFeginClient paymentHystrixFeginClient;  //注入openFegin接口(这个接口是为了测试Hystrix熔断的调用的是cloud-provider-payment-server8003服务)
 
-
+//测试的是RestTramplate模板的使用
     @RequestMapping(value = "/consumer/payment/{id}")     //请求地址
     public CommonResult getpaymentById(@PathVariable("id") Long id) {  //从地址栏接收参数
         return restTemplate.getForObject(URL_Banlance + "/payment/get/" + id, CommonResult.class);
@@ -71,8 +73,7 @@ public class OrderController {
         }
     }
 
-
-    //上面是通过ribbon+RestTemplate形式调用服务提供者，下面是通过openFegin技术调用服务提供者推荐使用
+    //上面是通过ribbon+RestTemplate形式调用服务提供者，下面是通过openFegin技术调用服务提供者推荐使用（测试openFegin使用）
     @RequestMapping("/consumer/openFegin/{id}")          //请求地址（查询）
     public CommonResult getPaymentMsgForOpenFegin(@PathVariable("id") Long id){    //参数栏去参数
         CommonResult commonResult = paymentFeignClient.getpaymentById(id);
@@ -85,4 +86,14 @@ public class OrderController {
         return commonResult;
     }
 
+    //上面是通过openFegin形式调用服务提供者，下面是通过openFegin技术调用服务提供者推荐使用（测试openFegin调用微服务从而引出熔断的概念和测试）
+    @RequestMapping("/consumer/openFeginByHystrixToOk/{id}")  //调用的服务立刻返回的
+    public String getpaymentMsgForOpenfeginByHystrixToOk(@PathVariable("id") Long id){
+        return paymentHystrixFeginClient.paymentInfo_Ok(id);
+    }
+
+    @RequestMapping("/consumer/openFeginHystrixToTimeOut/{id}") ////调用的服务设置了延迟3秒返回  （目的使用Jmeter工具模拟高并发测试Hsytrix熔断）
+    public String getPaymentMsgForOpenFeginByHystrixToTimeOut(@PathVariable("id") Long id) throws InterruptedException {
+        return paymentHystrixFeginClient.paymentInfo_TimeOut(id);
+    }
 }
