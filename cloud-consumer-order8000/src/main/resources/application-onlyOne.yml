@@ -25,3 +25,6 @@ eureka:
   #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
   #level:
     #com.atguigu.springcloud: debug
+logging:
+  level:
+    com.atguigu.springcloud.feignclient.PaymentFeignClient: debug                               #打开fegin的调用服务的详细日志对应Fegin的接口
