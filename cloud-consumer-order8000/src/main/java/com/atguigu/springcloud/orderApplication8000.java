@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -19,6 +20,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 //@RibbonClient(value = "cloud-payment-service" , configuration = MyRuleConfig.class) //指定自定义Ribbon负载均衡策略
 @EnableFeignClients(basePackages = {"com.atguigu.springcloud.feignclient","com.atguigu.springcloud.feginclient"})  //开启openFegin的功能并扫描openFegin所在包的接口，{}中可以传递多个
 @EnableCircuitBreaker() //SpringCloud中使用断路器，需要加上此注解
+@EnableHystrix          //开启hystrix的功能
 public class orderApplication8000 {
     public static void main(String[] args) {
         SpringApplication.run(orderApplication8000.class,args);
