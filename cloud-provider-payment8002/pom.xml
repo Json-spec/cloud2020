@@ -21,10 +21,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <!--springCloud的熔断以来hystrix(通过Hystrix来做服务的熔断降级和限流)-->
+        <!--springCloud的熔断以来hystrix(通过Hystrix来做服务的熔断降级和限流) Hystrix 依赖 主要是用  @HystrixCommand-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-netflix-hystrix</artifactId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <!--springboot的web启动包-->
         <dependency>

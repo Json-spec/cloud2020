@@ -20,6 +20,9 @@ ribbon:               #openFegin默认等待一秒钟超时因此需要设置ope
   ReadTimeout: 6000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
   ConnectTimeout: 6000   #建立后从服务器读取到可用资源所用的时间
 
+feign:
+  hystrix:
+    enabled: true          #添加了 openfeign 包 默认集成了 hystrix。使用hystrix的机制需要开启功能
     #logging:
     #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
     #level:
