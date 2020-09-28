@@ -22,16 +22,15 @@ public class paymentHystrixController {
 @RequestMapping("/hystrix/paymentInfo_Ok/{id}")
     public String paymentInfo_Ok(@PathVariable("id") Long id){
        Payment payment  =paymentHystrixService.selectByid(id);
-       int i = 10/0;
         String result = JSONObject.toJSONString(payment);
         return "线程池："+Thread.currentThread().getName()+" paymentInfo_Ok,id"+id ;
     }
 
     @RequestMapping("/hystrix/paymentInfo_TimeOut/{id}")
     public String paymentInfo_TimeOut(@PathVariable("id") Long id) throws InterruptedException {
-    /*Thread.sleep(300);*/
-        int timeout = 10 ;
-        TimeUnit.SECONDS.sleep(timeout);
+       /*Thread.sleep(300);*/
+       /* int timeout = 10 ;
+        TimeUnit.SECONDS.sleep(timeout);*/
         Payment payment  =paymentHystrixService.selectByid(id);
         String result = JSONObject.toJSONString(payment);
         return "线程池："+Thread.currentThread().getName()+" paymentInfo_TimeOut,id"+id;
