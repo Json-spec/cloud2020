@@ -33,10 +33,13 @@ ribbon:               #openFegin默认等待一秒钟超时因此需要设置ope
   ReadTimeout: 6000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
   ConnectTimeout: 6000   #建立后从服务器读取到可用资源所用的时间
 
+
+feign:
+  hystrix:
+    enabled: true       #开启openFegin整合hystrix的自我保护机制
 logging:
   #config: classpath:log4j2-test.xml                                                                  #指定日志文件的位置
   level:
     com.atguigu.springcloud.mapper: debug                                                             #指定日志级别为debug(level的下一层级代表的是包的路径最好配置为服务的父路径这样可以扫描所有文件)
-
 
 #注意: 集群环境下的服务 相同的服务部署在不同的服务器中 同一个服务的名称需要相同。
