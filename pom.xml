@@ -115,6 +115,7 @@
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
+            <!--指定项目编译环境是jdk1.8-->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
