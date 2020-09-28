@@ -22,7 +22,12 @@ ribbon:               #openFegin默认等待一秒钟超时因此需要设置ope
 
 feign:
   hystrix:
-    enabled: true          #添加了 openfeign 包 默认集成了 hystrix。使用hystrix的机制需要开启功能
+    enabled: true          #开启openFegin的hystrix的熔断功能默认是false
+management:                                                                                   # springboot中暴露健康检查等断点接⼝
+  endpoints:
+    web:
+      exposure:
+        include: "*"
     #logging:
     #config: classpath:log4j2-test.xml                                                            #指定日志文件的位置
     #level:
