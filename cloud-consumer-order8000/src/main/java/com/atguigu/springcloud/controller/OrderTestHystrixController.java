@@ -25,14 +25,14 @@ public class OrderTestHystrixController {
     @HystrixCommand(fallbackMethod = "paymentMsgForOpenfeginByHystrixToOk_fallback") //指定降级的方法paymentMsgForOpenfeginByHystrixToOk_fallback
     //@HystrixCommand   //此注解没有加fallbackMethod属性因此会走全局的默认的回退方法,指定fallbackMethod属性应该走具体定义的专属回退方法
     public String getpaymentMsgForOpenfeginByHystrixToOk(@PathVariable("id") Long id){
-        int i = 10 / 0 ;
+        int i = 10 / 0 ;   //此句代码为了体现降级功能所写
         return paymentHystrixFeginClient.paymentInfo_Ok(id);
     }
 
     @RequestMapping("/consumer/openFeginHystrix/{id}") ////调用的服务设置了延迟3秒返回  （目的使用Jmeter工具模拟高并发测试Hsytrix熔断）
     @HystrixCommand(fallbackMethod = "PaymentMsgForOpenFeginByHystrixToTimeOut_fallback") //指定降级的方法PaymentMsgForOpenFeginByHystrixToTimeOut_fallback
     public String getPaymentMsgForOpenFeginByHystrixToTimeOut(@PathVariable("id") Long id) throws InterruptedException {
-        Thread.sleep(7000);
+        Thread.sleep(7000);     //此句代码为了体现降级功能所写
         return paymentHystrixFeginClient.paymentInfo_TimeOut(id);
     }
 
@@ -48,5 +48,13 @@ public class OrderTestHystrixController {
     public String PaymentMsgForOpenFeginByHystrixToTimeOut_fallback(Long id){
         return "系统响应超时，请查证后再访问，PaymentMsgForOpenFeginByHystrixToTimeOut_fallback";
     }
+
+
+
+//  注意:  出现服务降级情况（程序异常、超时、线程池/信号量满、服务熔断引发的降级）
+
+        // 服务熔断(达到最大服务访问，服务拒绝访问)  服务降级--> 服务熔断-->链路恢复
+
+
 
 }
