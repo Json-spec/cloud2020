@@ -23,6 +23,7 @@
         <module>cloud-provider-payment-fegin</module>
         <module>cloud-provider-payment-hystrix-server8003</module>
         <module>cloud-provider-payment-fegin-hystrix-server8008</module>
+        <module>cloud-hystrix-test-server9000</module>
     </modules>
     <packaging>pom</packaging>
 

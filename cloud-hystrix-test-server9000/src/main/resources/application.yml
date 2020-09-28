@@ -1,0 +1,41 @@
+server:
+  port: 9000
+
+
+spring:
+  application:
+    name: hystrix-test-server
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&usrSSL=false
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+ribbon:               #openFegin默认等待一秒钟超时因此需要设置openFegin的超时时间（openFegin整合了ribbon因此超时间时间由ribbon控制）
+  ReadTimeout: 6000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
+  ConnectTimeout: 6000   #建立后从服务器读取到可用资源所用的时间
+
+feign:
+  hystrix:
+    enabled: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
