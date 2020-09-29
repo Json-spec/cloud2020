@@ -1,0 +1,31 @@
+#---------------------------基础配置必须要陪-----------------------------------------------------------------------------
+server:
+  port: 9527                                                                                          #端口号
+
+spring:
+  application:
+    name: cloud-gateway-server9527
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+        - id: payment8001_router1              #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
+          uri: http://localhost:8001           #匹配上的路由地址
+          predicates:                          #断言
+            - Path=/payment/get/**             #路由匹配后断言路径配置          都匹配的情况下访问地址为 localhost:8001/payment/get/**     *表示任何字符为通配符
+
+        - id: payment8001_router2             #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
+          uri: http://localhost:8001          #匹配上的路由地址
+          predicates:                         #断言
+            - Path=/payment/create           #路由匹配后断言路径配置          都匹配的情况下访问地址为 localhost:8001/payment/create     *表示任何字符为通配符
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true                                                                              # 是否拉取其它服务的信息，默认是true
+    register-with-eureka: true                                                                        # 是否注册自己的信息到EurekaServer，默认是true
+    serviceUrl:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka                #指定服务客户端要注册到那个注册中的具体地址(集群版需要在defaultZone后面列出所有注册中心服务端地址服务分别注册到每一个注册中心，注册中心地址以逗号分隔）
