@@ -1,0 +1,21 @@
+#---------------------------基础配置必须要陪-----------------------------------------------------------------------------
+server:
+  port: 9527                                                                                          #端口号
+
+spring:
+  application:
+    name: cloud-gateway-server9527
+  cloud:
+    gateway:
+      enabled: true
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true                                                                              # 是否拉取其它服务的信息，默认是true
+    register-with-eureka: true                                                                        # 是否注册自己的信息到EurekaServer，默认是true
+    serviceUrl:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka                #指定服务客户端要注册到那个注册中的具体地址(集群版需要在defaultZone后面列出所有注册中心服务端地址服务分别注册到每一个注册中心，注册中心地址以逗号分隔）
