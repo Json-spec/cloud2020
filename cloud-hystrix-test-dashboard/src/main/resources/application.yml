@@ -1,3 +1,4 @@
+
 server:
   port: 9001       #访问localhost:9001/hystrix 即可访问到监控的图形化界面
 
