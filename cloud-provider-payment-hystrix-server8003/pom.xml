@@ -32,7 +32,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--springboot监控坐标通常和springboot中web启动类一起使用-->
+        <!--springboot监控坐标通常和springboot中web启动类一起使用为了和dashboard监控仪表盘界面看到信息-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
