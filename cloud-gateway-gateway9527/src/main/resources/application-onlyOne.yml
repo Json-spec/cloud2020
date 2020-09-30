@@ -11,12 +11,12 @@ spring:
       routes:
         - id: payment8001_router1              #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
           uri: http://localhost:8001           #匹配上的路由地址
-          predicates:                          #断言
+          predicates:                          #断言(判断)
             - Path=/payment/get/**             #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/**
 
         - id: payment8001_router2             #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
           uri: http://localhost:8001          #匹配上的路由地址
-          predicates:                         #断言
+          predicates:                         #断言(判断)
             - Path=/payment/create           #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/**
 
 
