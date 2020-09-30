@@ -77,15 +77,4 @@ public class HystrixTestController {
         return "id不能为负数，请稍后再试id:"+id;
     }
 
-
-
-
-
-
-
-
-
-
-
-
 }
