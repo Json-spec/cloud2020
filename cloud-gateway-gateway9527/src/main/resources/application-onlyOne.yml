@@ -8,17 +8,21 @@ spring:
   cloud:
     gateway:
       enabled: true
+      discovery:
+        locator:
+          enabled: true                        #开启通过微服务名动态路由匹配功能
       routes:
         - id: payment8001_router1              #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
-          uri: http://localhost:8001           #匹配上的路由地址
+          #uri: http://localhost:8001           #匹配上的路由地址（写死的地址）
+          uri: lb://cloud-payment-service       #配后后提供的服务地址   lb表示网关的负载均衡配置
           predicates:                          #断言(判断)
-            - Path=/payment/get/**             #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/**
+            - Path=/payment/get/**             #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/** 或者 localhost:8002/payment/get/**   *表示任何字符为通配符
 
         - id: payment8001_router2             #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
-          uri: http://localhost:8001          #匹配上的路由地址
+          #uri: http://localhost:8001          #匹配上的路由地址 （写死的地址）
+          uri: lb://cloud-payment-service     #配后后提供的服务地址   lb表示网关的负载均衡配置
           predicates:                         #断言(判断)
-            - Path=/payment/create           #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/**
-
+            - Path=/payment/create           #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/** 或者 localhost:8002/payment/get/**     *表示任何字符为通配符
 
 
 eureka:
