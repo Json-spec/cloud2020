@@ -10,19 +10,40 @@ spring:
       enabled: true
       discovery:
         locator:
-          enabled: true                        #开启通过微服务名动态路由匹配功能
+          enabled: true                                                           #开启通过微服务名动态路由匹配功能
       routes:
-        - id: payment8001_router1              #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
-          #uri: http://localhost:8001           #匹配上的路由地址
-          uri: lb://cloud-payment-service       #配后后提供的服务地址   lb表示网关的负载均衡配置
-          predicates:                          #断言(判断)
-            - Path=/payment/get/**             #路由匹配后断言路径配置          访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/** 或者 localhost:8002/payment/get/**     *表示任何字符为通配符
+        - id: payment8001_router1                                                 #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
+          #uri: http://localhost:8001                                             #匹配上的路由地址
+          uri: lb://cloud-payment-service                                         #配后后提供的服务地址   lb表示网关的负载均衡配置
+          predicates:                                                             #断言(判断)
+            - Path=/payment/get/**                                                #路由匹配后断言路径配置          访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/** 或者 localhost:8002/payment/get/**     *表示任何字符为通配符
+            - After=2020-09-30T15:10:15.976+08:00[Asia/Shanghai]                  #在这个时间之后才能执行访问到此路由   这个时间格式是(ZonedDateTime对象)
+            #- Between=2020-09-30T15:27:15.976+08:00[Asia/Shanghai], 2020-09-30T15:28:15.976+08:00[Asia/Shanghai]  #在这个时间内匹配到可访问未匹配不能访问
+            #- Before=2020-09-30T19:10:15.976+08:00[Asia/Shanghai]                #在这个时间之前匹配到可访问到路由否则不能访问
+            - Cookie=jack,liuss                                                   #断言携带cookie匹配(cookiename和regexp（其是Java正则表达式）)jack是cookie名字 liuss是cookie名字的值需要匹配上  #cookie可以聪哥curl测试在cmd中输入 curl http://9527/payment/get/31即可访问不带cookie   curl http://localhost:9527/payment/get/31 --cookie "json=liuss" 即是携带cookie的形式
+            #- Header=X-Request-Id , \d+                                          #Header请求具有名为X-Request-Id其值与\d+正则表达式匹配的标头（即，其值为一个或多个数字），则此路由匹配。  #curl http://localhost:9527/payment/get/31 --cookie "jack=liuss" -H "X-Request-Id:2"  (带cookie和hearder的情况)
+            - Host=**.liuss.com                                                   #Host匹配主机如果匹配访问，否则不访问    #Host匹配主机如果匹配访问，否则不访问 curl http://localhost:9527/payment/get/31 --cookie "jack=liuss" -H "Host:com.liuss.com"
+            - Method=GET,POST                                                     #匹配get，post方法才可以访问     curl http://localhost:9527/payment/get/31 --cookie "jack=liuss" -H "Host:com.liuss.com" -X GET/POST
+            - Query=liuss                                                         #匹配查询条件liuss才可以访问      curl -v http://localhost:9527/payment/get/31?liuss --cookie "jack=liuss" -H "Host:com.liuss.com" -X POST           curl -v表示打印解析的全过程就像RestTemplate中调用postForEntity的方法一样
 
-        - id: payment8001_router2             #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
-          #uri: http://localhost:8001          #匹配上的路由地址
-          uri: lb://cloud-payment-service       #配后后提供的服务地址   lb表示网关的负载均衡配置
-          predicates:                         #断言(判断)
-            - Path=/payment/create           #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/**  或者 localhost:8002/payment/get/**    *表示任何字符为通配符
+
+
+        - id: payment8001_router2                                                #路由的Id没有具体要求但是必须要唯一，通常情况下建议配置上服务名
+          #uri: http://localhost:8001                                            #匹配上的路由地址
+          uri: lb://cloud-payment-service                                        #配后后提供的服务地址   lb表示网关的负载均衡配置
+          predicates:                                                            #断言(判断)
+            - Path=/payment/create                                               #路由匹配后断言路径配置           访问http://localhost:9527/payment/get/31路径在都匹配的情况下通过网关转到 localhost:8001/payment/get/**  或者 localhost:8002/payment/get/**    *表示任何字符为通配符
+            - After=2020-09-30T15:10:15.976+08:00[Asia/Shanghai]                 #在这个时间之后才能执行访问到此路由   这个时间格式是(ZonedDateTime对象)
+            #- Between=2020-09-30T15:27:15.976+08:00[Asia/Shanghai], 2020-09-30T15:28:15.976+08:00[Asia/Shanghai]  #在这个时间内匹配到可访问未匹配不能访问
+            #- Before=2020-09-30T19:10:15.976+08:00[Asia/Shanghai]               #在这个时间之前匹配到可访问到路由否则不能访问
+            - Cookie=jack,liuss                                                  #断言携带cookie匹配(cookiename和regexp（其是Java正则表达式）)jack是cookie名字 liuss是cookie名字的值需要匹配上  #cookie可以聪哥curl测试在cmd中输入 curl http://9527/payment/get/31即可访问不带cookie   curl http://localhost:9527/payment/get/31 --cookie "json=liuss" 即是携带cookie的形式
+            - Header=X-Request-Id , \d+                                          #Header请求具有名为X-Request-Id其值与\d+正则表达式匹配的标头（即，其值为一个或多个数字），则此路由匹配。  #curl http://localhost:9527/payment/get/31 --cookie "jack=liuss" -H "X-Request-Id:2"  (带cookie和hearder的情况)
+            - Host=**.liuss.com                                                   #Host匹配主机如果匹配访问，否则不访问    #Host匹配主机如果匹配访问，否则不访问 curl http://localhost:9527/payment/get/31 --cookie "jack=liuss" -H "Host:com.liuss.com"
+            - Method=GET,POST                                                     #匹配get，post方法才可以访问     curl http://localhost:9527/payment/get/31 --cookie "jack=liuss" -H "Host:com.liuss.com" -X GET/POST
+            - Query=liuss                                                         #匹配查询条件liuss才可以访问      curl -v http://localhost:9527/payment/get/31?liuss --cookie "jack=liuss" -H "Host:com.liuss.com" -X POST           curl -v表示打印解析的全过程就像RestTemplate中调用postForEntity的方法一样
+
+
+
 
 
 eureka:
