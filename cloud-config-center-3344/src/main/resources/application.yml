@@ -1,0 +1,48 @@
+server:
+  port: 3344                  #端口号
+
+
+spring:
+  application:
+    name: config-server      #服务名称
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Json-spec/springcloud-config.git          #分布式配置中心配置文件的远程仓库的地址
+          #username: 1654624759@qq.com                                      #github账号
+          #password: 52013145257LSs                                         #github密码     注如果git仓库是私有的需要配置用户名密码公开的不需要配置
+          search-paths: springcloud-config                                 #配置远程仓库读取路径
+      label: master                                                        #配置仓库的分支
+  http:                                                                    #解决分布式配置中心读取远程配置出现中文乱码的情况
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+eureka:
+  instance:
+    hostname: localhost                                                                               #主机名称可以是ip
+  client:
+    fetch-registry: true                                                                              # 是否拉取其它服务的信息，默认是true
+    register-with-eureka: true                                                                        # 是否注册自己的信息到EurekaServer，默认是true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/                                    #指定服务客户端要注册到那个注册中的具体地址
+
+
+#访问地址例如； http://localhost:3344/config-dev.yml    ,    http://localhost:3344/config-test.yml   可在浏览器中看见git仓库配置的具体配置信息(springcloud-config服务端访问)
+#启动分布式注册中心服务可通过一下方式进行访问远程配置
+ # /{application}/{profile}[/{label}]
+ # /{application}-{profile}.yml
+ # /{label}/{application}-{profile}.yml
+ # /{application}-{profile}.properties
+ # /{label}/{application}-{profile}.properties
+#label : git仓库的分支
+#application ：配置文件的文件名，如我的残酷里的clientOne.yml 中的“clientOne”，对应服务的应用名，这个后面再说
+#profile：这个很熟悉，配置文件的后缀，可以对应服务启用的环境
+#访问配置文件
+#默认访问
+#默认访问的是master分支
+
+
+
