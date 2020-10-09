@@ -26,6 +26,7 @@
         <module>cloud-hystrix-test-server9000</module>
         <module>cloud-hystrix-test-dashboard</module>
         <module>cloud-gateway-gateway9527</module>
+        <module>cloud-config-center-3344</module>
     </modules>
     <packaging>pom</packaging>
 
