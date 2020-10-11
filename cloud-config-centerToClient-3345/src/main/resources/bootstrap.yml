@@ -1,0 +1,44 @@
+server:
+  port: 3345
+
+spring:
+  application:
+    name: config-client
+  cloud:
+    #springcloud中config的客户端配置
+    config:
+      label: master                 #配置中心中的分支名称
+      name: config                  #git仓库中文件的前缀名称
+      profile: dev                  #git仓库中文件的后缀名称      拼起来 master/config-dev.yml此yml文件对应git上分布式配置中心仓库的文件（可以有多个文件只要配置对应上都能找到）3344端口访问地址是localhost:3344/master/config-dev.yml
+      uri: http://localhost:3344    #配置中心服务端地址
+
+      #label: dev                       #配置中心服务端的分支是dev分支
+      #name: config                    #配置中心服务端文件前缀是config文件
+      #profile: test                  #配置中心服务端文件后缀是test的文件          3344端口服务端访问地址是 http://localhost:3344/dev/config-test.yml
+      #uri: http://localhost:3344    #配置中心服务端地址
+
+#服务注册到注册中心
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
+
+#开启断点监控(*表示所有断点)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#注意： bootstrap.yml 和 application.yml 的区别
+#bootstrap.yml    是系统级别 (权限高于application.yml在微服务中同时存在bootstrap.yml和application.yml先读取bootstrap.yml中的配置,如果bootstrap.yml中没有相关配置才会去application.yml中读取)
+#application.yml  是用户级别
+
+#手动刷新配置文件(github修改了内容 config的客户端不用重启能自动同步问题)
+#1> yml中需要对断点进行监控
+#2> 在代码的类上加上@RefreshScope注解
+#3> 然后手动刷新发送一个post请求（必须是Post请求) post请求地址是: http://ip+config客户端的端口/actuator/refresh即可 （eg:http://localhost:3345/actuator/refresh）
