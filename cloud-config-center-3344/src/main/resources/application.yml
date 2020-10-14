@@ -14,12 +14,27 @@ spring:
           #password: 52013145257LSs                                         #github密码     注如果git仓库是私有的需要配置用户名密码公开的不需要配置
           search-paths: springcloud-config                                 #配置远程仓库读取路径
       label: master                                                        #配置仓库的分支
+  #解决从git上获取信息中文乱码问题配置
   http:                                                                    #解决分布式配置中心读取远程配置出现中文乱码的情况
     encoding:
       charset: UTF-8
       enabled: true
       force: true
+  #rabbitmq中15672是web网页访问的端口，5672是mq访问的端口
+  rabbitmq:                                      #消息队列的配置
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
 
+#使用消息队列需要对端口暴露
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#注册中心配置
 eureka:
   instance:
     hostname: localhost                                                                               #主机名称可以是ip
@@ -46,3 +61,7 @@ eureka:
 
 
 
+#自动刷新配置
+#通常使用rabbitmq/kafka等消息队列配合config分布式配置中心一起使用
+#1> 通常有两种方式一种是使用刷新客户端然后遍布到所有的客户端实现刷新 ，另一种方式是刷新springcloudconfig的服务端的形式然后发送一个post请求 curl -X POST "http://localhost:3344/actuator/bus-refresh"刷新服务端然后所有的客户端从而刷新 通常采用第二种方式
+#2> springcloudConfig通常了SpringcloudBus一起使用用过消息队列的形式进行配置的自动刷新

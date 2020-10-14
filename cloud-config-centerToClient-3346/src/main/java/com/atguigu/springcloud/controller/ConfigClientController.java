@@ -5,6 +5,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RefreshScope //分布式配置中心自动刷新的注解 需要配合yml文件中开启断点监控的配置一起使用以及pom中spring-boot-starter-actuator依赖一起使用
 public class ConfigClientController {

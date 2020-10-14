@@ -21,6 +21,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+        <!--springcloud的消息总线Bus通常和分布式配置中心config一起使用用来自动刷新配置中心的内容-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
         <!--springboot的web启动包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
