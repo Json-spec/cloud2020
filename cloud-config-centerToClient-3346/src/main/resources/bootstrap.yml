@@ -1,5 +1,5 @@
 server:
-  port: 3345
+  port: 3346
 
 spring:
   application:
@@ -17,7 +17,7 @@ spring:
       #profile: test                  #配置中心服务端文件后缀是test的文件          3344端口服务端访问地址是 http://localhost:3344/dev/config-test.yml
       #uri: http://localhost:3344    #配置中心服务端地址
 
- #rabbitmq中15672是web网页访问的端口，5672是mq访问的端口
+  #rabbitmq中15672是web网页访问的端口，5672是mq访问的端口
   rabbitmq:                           #消息队列的配置
     host: localhost
     port: 5672
