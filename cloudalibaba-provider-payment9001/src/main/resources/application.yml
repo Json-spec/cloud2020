@@ -1,0 +1,17 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: alibaba-server9001
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848     #配置Nacos地址服务像这个地址注册
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
