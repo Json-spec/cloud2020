@@ -1,0 +1,17 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: alibaba-server9001
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848   #配置nacos的注册中心的地址           nacos图形化界面:http://127.0.0.1:8848/nacos/index.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"                 #做监控时候需要暴露端点*表示全部端点
