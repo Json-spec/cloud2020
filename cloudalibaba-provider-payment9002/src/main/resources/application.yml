@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: alibaba-server9001
+    name: alibaba-server
 
   cloud:
     nacos:
