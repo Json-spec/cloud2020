@@ -29,6 +29,7 @@
         <module>cloud-config-centerToClient-3346</module>
         <module>cloudalibaba-provider-payment9001</module>
         <module>cloudalibaba-provider-payment9002</module>
+        <module>cloudalibaba-consumer-payment90</module>
     </modules>
     <packaging>pom</packaging>
 
