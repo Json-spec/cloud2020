@@ -3,15 +3,15 @@ server:
 
 spring:
   application:
-    name: alibaba-server9001
+    name: alibaba-server
 
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848     #配置Nacos地址服务像这个地址注册
+        server-addr: localhost:8848     #配置Nacos地址服务像这个地址注册     nacos图形化界面:http://127.0.0.1:8848/nacos/index.html
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*"             #做监控时候需要暴露端点*表示全部端点
