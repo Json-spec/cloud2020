@@ -1,0 +1,22 @@
+#bootstrap.yml是系统级别的配置级别高于application.yml(系统级别)     可以吧共有的配置放在bootstrap.yml中非公有的放在application.yml中
+server:
+  port: 9003
+
+
+spring:
+  application:
+    name: alibaba-nacos-config-server
+
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848         #配置Nacos地址服务像这个地址注册     nacos图形化界面:http://127.0.0.1:8848/nacos/index.html
+
+      config:
+        server-addr: localhost:8848         #配置中心地址
+        file-extension: yaml              #指定config的配置文件是yaml格式的配置  (等同于springcloudconfig中服务端配置的github上地址读取的文件)可以有多个(dev，text， online)等环境
+                                          #读取顺序服务启动加载bootstrap.yml的配置读取config下的配置通过server-addr找到nacos的配置中心服务通过application.yml中配置的环境和file-extension的value拼接找到相应的配置文件
+
+
+#    ${spring.application.name}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension}
