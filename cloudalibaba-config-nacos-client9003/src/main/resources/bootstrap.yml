@@ -19,4 +19,5 @@ spring:
                                           #读取顺序服务启动加载bootstrap.yml的配置读取config下的配置通过server-addr找到nacos的配置中心服务通过application.yml中配置的环境和file-extension的value拼接找到相应的配置文件
 
 
-#    ${spring.application.name}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension}
+# nacos的Dateid: ${spring.application.name}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension}
+# nacos的Dateid: alibaba-nacos-config-server-dev.yaml
