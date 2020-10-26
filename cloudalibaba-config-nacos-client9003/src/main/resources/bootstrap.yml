@@ -7,7 +7,6 @@ spring:
   application:
     name: alibaba-nacos-config-server
 
-
   cloud:
     nacos:
       discovery:
@@ -17,6 +16,12 @@ spring:
         server-addr: localhost:8848         #配置中心地址
         file-extension: yaml              #指定config的配置文件是yaml格式的配置  (等同于springcloudconfig中服务端配置的github上地址读取的文件)可以有多个(dev，text， online)等环境
                                           #读取顺序服务启动加载bootstrap.yml的配置读取config下的配置通过server-addr找到nacos的配置中心服务通过application.yml中配置的环境和file-extension的value拼接找到相应的配置文件
+        encode: UTF-8                      #字符集
+        group:  testGroup                 #分组（读取testGroup的分组内容）
+        namespace: 1b196d1f-5d62-4ac5-8cdc-91d2018561b5 #namespace的值是nacos图形化界面新建的命令空间的序列号 ， nacos默认的空间public不能被修改和删除 自己新建的可修改删除
 
+
+  # namespace group Dataid 区别      namespace > group > Dataid
+  # namespace 可以理解成项目中不同环境（dev test online）等环境通过namespace进行隔离开的 group即为每个环境下的分组(可以有多个) dataid 为每个组下面的巨田的配置或者说是服务
 
 #    ${spring.application.name}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension}
