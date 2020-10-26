@@ -22,5 +22,6 @@ spring:
 
 
   # namespace group Dataid 区别      namespace > group > Dataid
+  # namespace 可以理解成项目中不同环境（dev test online）等环境通过namespace进行隔离开的 group即为每个环境下的分组(可以有多个) dataid 为每个组下面的巨田的配置或者说是服务
 
 #    ${spring.application.name}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension}
