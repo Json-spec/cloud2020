@@ -19,6 +19,8 @@ eureka:
 ribbon:               #openFegin默认等待一秒钟超时因此需要设置openFegin的超时时间（openFegin整合了ribbon因此超时间时间由ribbon控制）
   ReadTimeout: 6000   #设置openFegin读取时间(建立连接所用时间)适用于网络正常的情况下，两端所用的时间
   ConnectTimeout: 6000   #建立后从服务器读取到可用资源所用的时间
+  eureka:
+    enabled: false         #ribbon的负载均衡开关 false禁用true开启  默认情况下是开启的
 
 feign:
   hystrix:
