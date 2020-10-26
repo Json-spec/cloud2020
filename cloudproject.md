@@ -17,5 +17,21 @@ cloud-config-centerToClient-3345 和 cloud-config-centerToClient-3346 这两个�
 cloudalibaba-provider-payment9001                        此模块是测试springclouAlibaba的nacos的discovery的基本功能。
 cloud-consumer-order8000               此模块是网关路由的服务通过路由地址调相应的服务，也是opfengin的调用服务的入口然后找到相应的服务提供数据(与前台交互的一个模块)。
 
+cloudalibaba-consumer-payment90        此模块是测试nacos注册中心的服务消费者
+cloudalibaba-provider-payment9001      此模块是测试nacos注册中心的服务提供者
+cloudalibaba-provider-payment9002      此模块是测试nacos注册中心的服务提供者    
+注：cloudalibaba-provider-payment9001和cloudalibaba-provider-payment9002一起组成了一个集群通过cloudalibaba-consumer-payment90调用nacos整合了ribbon
+    因此自带负载均衡的功能
+    
+ cloudalibaba-config-nacos-client9003  此模块是为了测试nacos的config分布式配置中心功能此为客户端nacos分布式没有服务端他的服务端就是(启动nacos服务即可)
+ 注: cloudalibaba-config-nacos-client9003这个分布式配置中心中有三个点很主要分别是 namespace group Dataid 其中(namespace>group>Dataid)
+     namespace通常是用来创建不同环境的(test,dev,online)三个环境其中namespace可以将单个不同环境隔离
+     Group在不同环境中可以分别不同的组
+     dataId通常是${prifix}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension} 
+     (注：${prifix}默认是等于${spring.application.name} 也可以通过${spring.cloud.nacos.config.prifix}指定 ${spring.profile-active}为项目的运行环境
+          ${spring.cloud.nacos.config.file-extension}配置文件的类型(yaml,txt等)    eg：alibaba-config-server-dev.yaml
+      Dataid = ${prifix}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension} 
+     )
+       
 
 
