@@ -8,8 +8,41 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848  #配置Nacos地址服务像这个地址注册     nacos图形化界面:http://127.0.0.1:8848/nacos/index.html
+        server-addr: localhost:1111  #配置Nacos地址服务像这个地址注册服务(localhost:8848本地nacos服务地址)     nacos图形化界面:http://127.0.0.1:8848/nacos/index.html    localhost:1111测试集群的nginx地址通过代理到nacos
 
 
 server-url:
   nacos-user-server: http://alibaba-server                #次服务使用restTemplate调用的服务提供者的服务名称通过配置文件配置取 之前是在代码中定义常量写死的此种方法更加优雅
+
+
+
+
+
+
+######################################################nacos集群搭建方法#############################################################
+#  windouwns：                                                                                                                    #
+#      1.nacos服务端的压缩文件复制三份分别到nacos/conf/application.properties修改三份服务端的端口号(端口自定义)                       #                                                                                                            #
+#      2.nacos服务端中nacos/conf/application.properties文件中分别修改修改持久化配置将自带的derby嵌入式数据库改成本地或服务器           #                                                                               #
+#        上数据库做持久化操作三个nacos持久化数据库可以使用同一个保证数据的一致性                                                      #                                                                                                               #
+#      3.修改nacos/conf/cluster.conf文件添加nacos集群的ip和端口(eg:192.168.0.161:8848,192.168.0.161:8847,192.168.0.161:8846)       #                                                                                                                   #
+#      4.启动三台nacos的服务                                                                                                      #
+#      5.配置nginx通过nginx代理路由到各台nacos服务器上                                                                             #
+#         nginx：配置 upstream cluster{ server 192.168.0.161:8848;                                                               #
+#                                      server  192.168.0.161:8847;                                                              #
+#                                      server  192.168.0.161:8846;                                                              #
+#                                     }                                                                                         #
+#                     server {                                                                                                  #
+#                              listen:1111        nginx监听端口                                                                  #
+#                          }                                                                                                    #
+#                    location / {                                                                                               #
+#                           proxy_pass: http://cluster/nacos;                                                                    #
+#                           }                                                                                                   #
+#      6.项目中的模块中 spring.cloud.nacos.disscovery.server-add: nginx的地址(eg:localhost:1111)                                  #                                                                                                             #
+#      7.测试                                                                                                                    #
+#                                                                                                                               #
+#  注:nacos官方指出使用linux做集群部署linux和windowns部署不走完全一样只不过在linux中需要对是三台nacos服务器端口修改需要改             #
+#      startup.sh的脚本文件增加参数来配置效果最好                                                                                 #
+#                                                                                                                               #
+#                                                                                                                               #
+#                                                                                                                               #
+#################################################################################################################################
