@@ -39,12 +39,12 @@ spring:
 
 ######################################################nacos集群搭建方法#############################################################
 #  windouwns：                                                                                                                    #
-#      1.nacos服务端的压缩文件复制三份分别到nacos/conf/application.properties修改三份服务端的端口号(端口自定义)                       #                                                                                                            #
-#      2.nacos服务端中nacos/conf/application.properties文件中分别修改修改持久化配置将自带的derby嵌入式数据库改成本地或服务器           #                                                                               #
-#        上数据库做持久化操作三个nacos持久化数据库可以使用同一个保证数据的一致性                                                      #                                                                                                               #
+#      1.nacos服务端的压缩文件复制三份分别到nacos/conf/application.properties修改三份服务端的端口号(端口自定义)                         #                                                                                                            #
+#      2.nacos服务端中nacos/conf/application.properties文件中分别修改修改持久化配置将自带的derby嵌入式数据库改成本地或服务器             #                                                                               #
+#        上数据库做持久化操作三个nacos持久化数据库可以使用同一个保证数据的一致性                                                        #                                                                                                               #
 #      3.修改nacos/conf/cluster.conf文件添加nacos集群的ip和端口(eg:192.168.0.161:8848,192.168.0.161:8847,192.168.0.161:8846)       #                                                                                                                   #
 #      4.启动三台nacos的服务                                                                                                      #
-#      5.配置nginx通过nginx代理路由到各台nacos服务器上                                                                             #
+#      5.配置nginx通过nginx代理路由到各台nacos服务器上                                                                              #
 #         nginx：配置 upstream cluster{ server 192.168.0.161:8848;                                                               #
 #                                      server  192.168.0.161:8847;                                                              #
 #                                      server  192.168.0.161:8846;                                                              #
@@ -53,16 +53,16 @@ spring:
 #                              listen:1111        nginx监听端口                                                                  #
 #                          }                                                                                                    #
 #                    location / {                                                                                               #
-#                           proxy_pass: http://cluster/nacos;                                                                    #
+#                           proxy_pass: http://cluster/nacos;                                                                   #
 #                           }                                                                                                   #
 #      6.项目中的模块中 spring.cloud.nacos.disscovery.server-add: nginx的地址(eg:localhost:1111)                                  #                                                                                                             #
-#      7.测试                                                                                                                    #
+#      7.测试                                                                                                                   #
 #                                                                                                                               #
-#  注:nacos官方指出使用linux做集群部署linux和windowns部署不走完全一样只不过在linux中需要对是三台nacos服务器端口修改需要改             #
-#      startup.sh的脚本文件增加参数来配置效果最好                                                                                 #
+#  注:nacos官方指出使用linux做集群部署linux和windowns部署不走完全一样只不过在linux中需要对是三台nacos服务器端口修改需要改                #
+#      startup.sh的脚本文件增加参数来配置效果最好。                                                                                 #
 #                                                                                                                               #
-#                                                                                                                               #
-#                                                                                                                               #
+#     nacos的服务端的压缩包中在nacos/conf/nacos-mysql.sql这个sql脚本是nacos持久化迁移数据库的脚本是阿里巴巴的nacos公司所写应严格按照     #                                                                                                                     #
+#     此脚本去运行并且要求mysql数据库的版本是3.6+版本。                                                                             #                                             #
 #################################################################################################################################
 
 
