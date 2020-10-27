@@ -25,3 +25,14 @@ spring:
   # namespace 可以理解成项目中不同环境（dev test online）等环境通过namespace进行隔离开的 group即为每个环境下的分组(可以有多个) dataid 为每个组下面的巨田的配置或者说是服务
 
 #    ${spring.application.name}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension}
+
+
+# 注意: nacos持久化问题
+# 答： nacos自己自带了一个嵌入式的数据库derby未做持久化之前会把数据保存在derby数据库中，在集群中启动几个nacos就有几个derby数据库因此会出现数据一致性问题
+# 持久化即是将nacos自带的derby数据库迁移至本地或者服务器上的mysql数据库这样不管启动多少个nacos都会读取同一个数据库的内容数据因此可以解决数据库的一致性问题
+# 持久化数据库迁移至本地的操作： 1.在下载的nacos服务中的conf文件夹下有一个nacos-mysql.sql文件需要在本地运行(mysql版本5.6+) 2.在conf文件夹下有一个application.properties文件127行下面添加一下配置(配置数据库)
+#  spring.datasource.platform=mysql     指定数据库名称为mysql(只支持mysql)
+#  db.num=1                              数据库编号为1不用改变为1就行
+#  db.url.0=jdbc:mysql://127.0.0.1:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC 驱动
+#  db.user=root                          数据库用户名
+# db.password=root                      数据库密码
