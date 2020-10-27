@@ -31,7 +31,7 @@ cloudalibaba-provider-payment9002      此模块是测试nacos注册中心的服
      (注：${prifix}默认是等于${spring.application.name} 也可以通过${spring.cloud.nacos.config.prifix}指定 ${spring.profile-active}为项目的运行环境
           ${spring.cloud.nacos.config.file-extension}配置文件的类型(yaml,txt等)    eg：alibaba-config-server-dev.yaml
       Dataid = ${prifix}-${spring.profile-active}.${spring.cloud.nacos.config.file-extension} 
-     )
+     ),其中在此模块中个添加了对naco集群部署的方法步骤的注释可详细参考。
        
 
 
