@@ -1,0 +1,28 @@
+server:
+  port: 8401
+
+spring:
+  application:
+    name: sentinel-server
+
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848          #配置nacos注册中心的地址
+
+
+    sentinel:
+      transport:
+        dashboard: localhost:8080           #配置sentinel的监控平台地址(sentinel的dahboard的图形化界面是8080端口)
+        port: 8719                          #默认监听8719端口（如果端口8719占用了他会从8719进行+1一直到没有占用的那个端口为止）
+
+
+management:                                 # springboot中暴露健康检查等断点接⼝
+  endpoints:
+    web:
+      exposure:
+        include: "*"                       #对外暴露端口号
+
+# 注: sentinel 配置transport.dahboard以后注释是对此服务进行监控，监控的时候因此就需要暴露断点，在sentinel监控配置完成以后启动为服务打开sentinel监控平台网址
+#     需要先访问接口然后再刷新监控页面才能看到监控信息，因为sentinel在涉计的时候使用的是懒加载的方式。
